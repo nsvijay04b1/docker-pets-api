@@ -1,0 +1,27 @@
+# Use the official Node.js image as the base
+FROM node:18
+
+# Set the working directory inside the container
+WORKDIR /usr/src/app
+
+# Copy the package.json and package-lock.json
+COPY package*.json ./
+
+# Install all dependencies (including devDependencies to include TypeScript)
+RUN npm install express @types/express typescript uuid @types/uuid 
+    
+# Copy the rest of the application code
+COPY . .
+
+# Compile TypeScript to JavaScript
+RUN npx tsc
+
+# Expose the port the app will run on
+EXPOSE 3000
+
+# Install only production dependencies (no devDependencies)
+RUN npm install --only=production
+
+# Start the Node.js application using the compiled JavaScript
+CMD ["node", "dist/index.js"]
+   

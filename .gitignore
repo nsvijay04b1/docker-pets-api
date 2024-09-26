@@ -1,0 +1,9 @@
+# Gitignore
+**/node_modules/*
+.DS_Store
+.env
+.env.test
+.env.development
+.env.production
+.env.local
+
